@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.EditText;
 
@@ -67,6 +68,32 @@ public class MainActivity extends AppCompatActivity {
 
         // Link the adapter to the RecyclerView
         waitlistRecyclerView.setAdapter(mAdapter);
+
+        //TODO (54) Create a new ItemTouchHelper with a SimpleCallback that handles both LEFT and RIGHT swipe directions
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT){
+            // TODO (55) Override onMove and simply return false inside
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+            // TODO (56) Override onSwiped
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                // TODO (59) Inside, get the viewHolder's itemView's tag and store in a long variable id
+                long id = (long)viewHolder.itemView.getTag();
+                // TODO (60) call removeGuest and pass through that id
+                removeGuest(id);
+                // TODO (61) call swapCursor on mAdapter passing in getAllGuests() as the argument
+                mAdapter.swapCursor(getAllGuests());
+
+            }
+            //TODO (62) attach the ItemTouchHelper to the waitlistRecyclerView
+
+        }).attachToRecyclerView(waitlistRecyclerView);
+
+
 
     }
 
@@ -134,6 +161,14 @@ try {
 
     }
 
+
+// TODO (52) Create a new function called removeGuest that takes long id as input and returns a boolean
+    private void removeGuest(long id){
+        // TODO (53) Inside, call mDb.delete to pass in the TABLE_NAME and the condition that WaitlistEntry._ID equals id
+        mDb.delete(WaitlistContract.WaitlistEntry.TABLE_NAME,
+                WaitlistContract.WaitlistEntry._ID + "=" +id, null);
+
+    }
 
 
 

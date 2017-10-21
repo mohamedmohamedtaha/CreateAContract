@@ -54,12 +54,20 @@ public class GuestListAdapter extends RecyclerView.Adapter<GuestListAdapter.Gues
 
         // TODO (28) Call getInt on the cursor to get the party size
         int partySize =mCursor.getInt(mCursor.getColumnIndex(WaitlistContract.WaitlistEntry.COLUMN_PARTY_SIZE));
+        // TODO (57) Retrieve the id from the cursor and
+        long id = mCursor.getLong(mCursor.getColumnIndex(WaitlistContract.WaitlistEntry._ID));
+
 
         // TODO (29) Set the holder's nameTextView text to the guest's name
         holder.nameTextView.setText(name);
 
         // TODO (30) Set the holder's partySizeTextView text to the party size
         holder.partySizeTextView.setText(String.valueOf(partySize));
+
+        // TODO (58) Set the tag of the itemview in the holder to the id
+        //when not need to show in  the RecycleView and store indide itemView without show it
+        holder.itemView.setTag(id);
+
     }
 
     // TODO (20) Modify the getItemCount to return the mCount value rather than 0
