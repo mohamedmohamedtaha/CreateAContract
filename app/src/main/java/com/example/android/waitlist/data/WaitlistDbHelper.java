@@ -29,7 +29,7 @@ public class WaitlistDbHelper extends SQLiteOpenHelper {
     // TODO (9) Inside, execute a drop table query, and then call onCreate to re-create it
 
     public  static final String DATABASE_NAME = "waitlist.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     public WaitlistDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,8 +41,8 @@ public class WaitlistDbHelper extends SQLiteOpenHelper {
                 WaitlistEntry.TABLE_NAME + " (" +
                 WaitlistEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 WaitlistEntry.COLUM_GUEST_NAME  + " TEXT NOT NULL, " +
-                WaitlistEntry.COLUMN_PARTY_SIZE + "INTEGER NOT NULL, " +
-                WaitlistEntry.COLUMN_TIMESTAMP  + "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" + ");";
+                WaitlistEntry.COLUMN_PARTY_SIZE + " INTEGER NOT NULL, " +
+                WaitlistEntry.COLUMN_TIMESTAMP  + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" + "); ";
         db.execSQL(SQL_CREATE_WAITLIST_TABLE);
     }
 
